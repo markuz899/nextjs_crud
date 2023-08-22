@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import TopicForm from "@/components/topicForm";
+import TopicForm from "@/components/TopicForm";
 
 export default function AddTopic() {
   const router = useRouter();

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import TopicForm from "@/components/topicForm";
+import TopicForm from "@/components/TopicForm";
 
 const getTopicById = async (id: any) => {
   try {
