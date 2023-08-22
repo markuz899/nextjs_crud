@@ -22,13 +22,16 @@ export default function AddTopic() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/topics", {
-        method: "POST",
-        headers: {
-          "Content-type": "Application/json",
-        },
-        body: JSON.stringify({ title, description }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topics`,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "Application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        }
+      );
       if (res.ok) {
         router.refresh();
         router.push("/");
