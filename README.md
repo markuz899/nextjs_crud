@@ -4,6 +4,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+- Add .env file with
+```bash
+MONGO_DB=mongodb://127.0.0.1:27017/forum
+NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+```
+
 ```bash
 npm run dev
 # or
