@@ -33,7 +33,7 @@ export default async function TopicList() {
       {topics &&
         topics.map((el: Topic) => (
           <div className="w-full">
-            <div className="p-4 border border-slate-300 my-2 flex justify-between gap-5 items-start">
+            <div className="p-4 border border-slate-300 my-2 flex justify-between gap-5 items-start rounded-md hover:bg-slate-600 transition-colors duration-200">
               <div>
                 <h2 className="font-bold text-2xl">{el.title}</h2>
                 <div>{el.description}</div>
