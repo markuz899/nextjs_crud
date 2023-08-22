@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
-
-interface Topic {
-  _id: string;
-  title: string;
-  description: string;
-}
+import TopicForm from "@/components/topicForm";
 
 export default function AddTopic() {
   const router = useRouter();
-  const [title, setTitle] = useState<any>();
-  const [description, setDescription] = useState<any>();
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleAction = async (data: any) => {
+    let title = data.get("title");
+    let description = data.get("description");
 
     if (!title || !description) {
       alert("Title and description are required");
@@ -43,30 +37,5 @@ export default function AddTopic() {
     }
   };
 
-  return (
-    <form className="flex flex-col gap-3 my-2  py-2" onSubmit={handleSubmit}>
-      <input
-        className="border border-slate-500 px-8 py-2 text-black"
-        type="text"
-        placeholder="Topic title"
-        onChange={(evt: any) => setTitle(evt.target.value)}
-        value={title}
-      />
-
-      <input
-        className="border border-slate-500 px-8 py-2 text-black"
-        type="text"
-        placeholder="Topic description"
-        onChange={(evt: any) => setDescription(evt.target.value)}
-        value={description}
-      />
-
-      <button
-        type="submit"
-        className="bg-green-600 font-bold text-white py-3 px-6 w-fit"
-      >
-        Add topic
-      </button>
-    </form>
-  );
+  return <TopicForm action={handleAction} />;
 }

@@ -1,5 +1,8 @@
-import EditTopicForm from "@/components/EditTopicForm";
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import TopicForm from "@/components/topicForm";
 
 const getTopicById = async (id: any) => {
   try {
@@ -20,14 +23,50 @@ const getTopicById = async (id: any) => {
   }
 };
 
-export default async function EditTopic({ params }: any) {
+export default function EditTopic({ params }: any) {
+  const [data, setData] = useState<any>({});
+  const router = useRouter();
   const { id } = params;
-  const { topic }: any = await getTopicById(id);
+
+  const getData = async () => {
+    const d = await getTopicById(id);
+    setData(d.topic || {});
+  };
+
+  useEffect(() => {
+    getData();
+  }, [params]);
+
+  const handleAction = async (data: any) => {
+    let newTitle = data.get("title");
+    let newDescription = data.get("description");
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/topics/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({ newTitle, newDescription }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Error in put method");
+      }
+      router.refresh();
+      router.push("/");
+    } catch (err) {
+      console.log("Error in handleSubmit in edit", err);
+    }
+  };
   return (
-    <EditTopicForm
-      id={id}
-      title={topic.title}
-      description={topic.description}
+    <TopicForm
+      action={handleAction}
+      title={data.title}
+      description={data.description}
     />
   );
 }
