@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Profile from "@/components/Profile";
+import withAuth from "@/hooks/withAuth";
 
 const MyProfile = () => {
   const router = useRouter();
@@ -21,8 +22,6 @@ const MyProfile = () => {
 
     if (session?.user.id) {
       fetchPosts();
-    } else {
-      router.push("/");
     }
   }, [session?.user.id]);
 
@@ -54,19 +53,15 @@ const MyProfile = () => {
 
   return (
     <>
-      {session?.user.id ? (
-        <Profile
-          name={session?.user.name}
-          desc="Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
-          data={myPosts}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
-      ) : (
-        <p>Redirect please wait...</p>
-      )}
+      <Profile
+        name={session?.user.name}
+        desc="Welcome to your personalized profile page. Share your exceptional prompts and inspire others with the power of your imagination"
+        data={myPosts}
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
     </>
   );
 };
 
-export default MyProfile;
+export default withAuth(MyProfile);

@@ -31,6 +31,13 @@ export default function Navbar() {
           <div className="flex gap-3 md:gap-5">
             <Link
               className="flex items-center"
+              href={"/topic"}
+              onClick={() => setToggleDropdown(!toggleDropdown)}
+            >
+              Topic
+            </Link>
+            <Link
+              className="flex items-center"
               href={"/topic/addTopic"}
               onClick={() => setToggleDropdown(!toggleDropdown)}
             >
@@ -57,6 +64,13 @@ export default function Navbar() {
           </div>
         ) : (
           <>
+            <Link
+              href={"/topic"}
+              className="pr-3"
+              onClick={() => setToggleDropdown(false)}
+            >
+              Topic
+            </Link>
             {providers &&
               Object.values(providers).map((provider: any) => {
                 return (
@@ -97,11 +111,18 @@ export default function Navbar() {
                   My Profile
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href={"/topic"}
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
-                  Create Prompt
+                  Topic
+                </Link>
+                <Link
+                  href="/topic/addTopic"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Create Topic
                 </Link>
                 <button
                   type="button"
@@ -118,6 +139,13 @@ export default function Navbar() {
           </div>
         ) : (
           <>
+            <Link
+              href={"/topic"}
+              className="pr-1"
+              onClick={() => setToggleDropdown(false)}
+            >
+              Topic
+            </Link>
             {providers &&
               Object.values(providers).map((provider: any) => (
                 <button

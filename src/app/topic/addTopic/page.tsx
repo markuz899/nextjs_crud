@@ -4,8 +4,9 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import TopicForm from "@/components/TopicForm";
 import { useSession } from "next-auth/react";
+import withAuth from "@/hooks/withAuth";
 
-export default function AddTopic() {
+const AddTopic = () => {
   const router = useRouter();
   const { data: session }: any = useSession();
 
@@ -44,4 +45,6 @@ export default function AddTopic() {
   };
 
   return <TopicForm action={handleAction} />;
-}
+};
+
+export default withAuth(AddTopic);

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 const PromptCard = ({
   post,
@@ -47,9 +48,13 @@ const PromptCard = ({
           />
 
           <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-300">
-              {post.creator.username}
-            </h3>
+            <Link
+              href={`/profile/${post.creator._id}?name=${post.creator.username}`}
+            >
+              <h3 className="font-satoshi font-semibold text-gray-300">
+                {post.creator.username}
+              </h3>
+            </Link>
             <p className="font-inter text-sm text-gray-400">
               {post.creator.email}
             </p>
