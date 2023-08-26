@@ -4,6 +4,10 @@ const topicSchema = new Schema(
   {
     title: String,
     description: String,
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,

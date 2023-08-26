@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import TopicForm from "@/components/TopicForm";
+import { useSession } from "next-auth/react";
 
 const getTopicById = async (id: any) => {
   try {
@@ -26,6 +27,7 @@ const getTopicById = async (id: any) => {
 export default function EditTopic({ params }: any) {
   const [data, setData] = useState<any>({});
   const router = useRouter();
+  const { data: session }: any = useSession();
   const { id } = params;
 
   const getData = async () => {
@@ -49,7 +51,11 @@ export default function EditTopic({ params }: any) {
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify({ newTitle, newDescription }),
+          body: JSON.stringify({
+            creator: session?.user.id,
+            newTitle,
+            newDescription,
+          }),
         }
       );
 
@@ -57,7 +63,7 @@ export default function EditTopic({ params }: any) {
         throw new Error("Error in put method");
       }
       router.refresh();
-      router.push("/");
+      router.push("/topic");
     } catch (err) {
       console.log("Error in handleSubmit in edit", err);
     }

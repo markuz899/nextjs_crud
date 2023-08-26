@@ -7,6 +7,7 @@ interface Topic {
   _id: string;
   title: string;
   description: string;
+  creator: any;
 }
 
 const getTopics = async () => {
@@ -26,7 +27,7 @@ const getTopics = async () => {
   }
 };
 
-export default async function TopicList() {
+export default async function TopicList({ session }: any) {
   const { topics } = (await getTopics()) || [];
   return (
     <>
@@ -40,10 +41,14 @@ export default async function TopicList() {
               </div>
 
               <div className="flex gap-2">
-                <RemoveBtn id={el._id} />
-                <Link href={`/editTopic/${el._id}`}>
-                  <HiPencilAlt size={24} />
-                </Link>
+                {el.creator._id === session?.user.id && (
+                  <>
+                    <RemoveBtn id={el._id} />
+                    <Link href={`/topic/editTopic/${el._id}`}>
+                      <HiPencilAlt size={24} />
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

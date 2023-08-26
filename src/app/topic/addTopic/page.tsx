@@ -3,9 +3,11 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import TopicForm from "@/components/TopicForm";
+import { useSession } from "next-auth/react";
 
 export default function AddTopic() {
   const router = useRouter();
+  const { data: session }: any = useSession();
 
   const handleAction = async (data: any) => {
     let title = data.get("title");
@@ -23,12 +25,16 @@ export default function AddTopic() {
           headers: {
             "Content-type": "Application/json",
           },
-          body: JSON.stringify({ title, description }),
+          body: JSON.stringify({
+            creator: session?.user.id,
+            title,
+            description,
+          }),
         }
       );
       if (res.ok) {
         router.refresh();
-        router.push("/");
+        router.push("/topic");
       } else {
         throw new Error("Failed to create a topic");
       }
