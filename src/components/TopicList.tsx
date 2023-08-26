@@ -36,6 +36,7 @@ export default async function TopicList({ session }: any) {
           <div className="w-full">
             <div className="p-4 border border-slate-300 my-2 flex justify-between gap-5 items-start rounded-md hover:bg-slate-600 transition-colors duration-200">
               <div>
+                <h2 className="font-bold text-xs">{el.creator?.username}</h2>
                 <h2 className="font-bold text-2xl">{el.title}</h2>
                 <div>{el.description}</div>
               </div>
